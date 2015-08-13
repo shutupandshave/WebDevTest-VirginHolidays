@@ -1,0 +1,66 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: #eee;
+}
+
+ul {
+	list-style-type: none;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.container {
+	background-color: #fff;
+	height: 100%;
+}
+
+h1 {
+	font-family: 'Architects Daughter', cursive;
+	font-size: 72px;
+}
+
+h2 { 
+	color: #337ab7;
+}
+
+.btn {
+	padding: 20px 40px 20px 40px;
+}
+
+#process > .row {
+	margin-bottom: 40px;
+}
+
+.pizza-option {
+	text-align: center;
+}
+
+.pizza-option label {
+	height: 80px;
+	width: 100%;
+	cursor: pointer;
+	background-color: #ebdd37;
+	border-radius: 120px;
+	box-shadow: #111 2px 2px 2px 1px;
+	font-size: 20px;
+	font-weight: normal;
+}
+
+
+.pizza-option input {
+	display: block;
+	margin: 0 auto;
+}
+
+.nav {
+	margin-top: 60px;
+}
+
+#process {
+	height: 400px;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="pizzaApp">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/pizza.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="content" class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1><span class="glyphicon glyphicon-certificate"></span> Design a pizza</h1>
+        </div>
+      </div>
+
+      <div ng-controller="designPizza">
+        <h2 ng-cloak>{{stepTitle()}}</h2>
+
+        <div class="row" >
+          <div class="col-md-12">
+            <div class="progress" ng-cloak>
+              <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="{{stepPercentage()}}" aria-valuemin="0" aria-valuemax="100" ng-style="{ width: (stepPercentage() + '%') }">
+                <span class="sr-only">{{stepPercentage()}}% Complete</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="process" ng-hide="currentStep > 1">
+          <div class="row" ng-repeat="(option, list) in process[currentStep]">
+            <div class="col-md-{{process[currentStep][option].width}} pizza-option" ng-repeat="(i, o) in process[currentStep][option].data" ng-switch on="process[currentStep][option].type">
+              <label for="{{option}}-{{i}}">{{o.name}}
+                <input type="radio" id="{{option}}-{{i}}" ng-model="model[currentStep][option]" value="{{o.name}}" ng-switch-when="radio" />
+
+                <input type="checkbox" id="{{option}}-{{i}}" ng-model="model[currentStep][option][o.name]" ng-switch-when="checkbox" />
+
+                <p ng-switch-when="display">{{model[0][option]}}</p>
+              </label>
+            </div>
+            <div ng-if="(process[currentStep][option].data.length % (12 / process[currentStep][option].width) > 0)"
+             class="col-md-{{responsive.calculateExtra(option)}}">&nbsp;</div>
+          </div>
+        </div>
+
+        <div id="checkout" ng-cloak ng-show="currentStep > 1">
+          <ul>
+            <li>{{ displayResult('size') }}</li>
+            <li>{{ displayResult('base') }}</li>
+            <li>{{ displayResult('sauce') }}</li>
+            <li>{{ displayResult('cheese') }}</li>
+            <li>{{ displayResult('topping') }}</li>
+            <li>Total: {{ displayTotal() }}</li>
+          </ul>
+        </div>
+
+        <div class="row nav">
+          <div class="col-md-2 col-sm-4">
+            <button class="btn btn-danger" ng-hide="currentStep === 0" ng-click="prevStep()">Back</button>
+          </div>
+
+          <div class="col-md-8 col-sm-4"></div>
+
+          <div class="col-md-2 col-sm-4">
+            <button class="btn btn-primary" ng-disabled="validate.errorCount() > 0" ng-click="nextStep()" ng-hide="currentStep > 1">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/pizza.js"></script>
+  </body>
+</html>
